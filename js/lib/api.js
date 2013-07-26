@@ -72,6 +72,7 @@
       },
 
       invoke: function(path, _options) {
+        _options = _.extend({}, _options);
         var options = _options || {};
         var url;
         if (path.indexOf('http') !== 0) {

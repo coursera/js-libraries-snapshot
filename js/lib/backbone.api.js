@@ -23,9 +23,11 @@ function(Backbone, _, API) {
     // pass in message.waiting, message.error and message.success to show global asyncMessages 
 
     sync: function(method, model, options) {
+      options = _.extend({}, options);
       var that = this;
       var action = [];
       var id = this.urlId || this.idAttribute || 'id';
+
       // NOTE: options.url is set by backbone.relational when fetch(ing)Related a Collection
       var url = options.url ? options.url : _.isFunction(this.url) ? this.url() : this.url;
 
@@ -33,7 +35,6 @@ function(Backbone, _, API) {
         var urlRoot = url || (_.isFunction(this.urlRoot) ? this.urlRoot() : this.urlRoot);
         this.api = API(urlRoot);
       }
-
       if (method == "create") {
         options.data = _.extend(this.toJSON(), options.data || {});
         return this.api.post(url, options);
